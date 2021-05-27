@@ -9,6 +9,7 @@ from fastapi import Depends
 from fastapi.security import OAuth2PasswordRequestForm
 from models import *
 
+
 app = FastAPI()
 
 @app.on_event('startup')
@@ -71,7 +72,7 @@ async def get_dog_for_name(name:str):
     return list(dog)
 
 @app.get("/api/dogs/is_adopted/{}")
-async def get_dog_is_adopted(adopted:bool = True):
+async def dog_is_adopted(adopted:bool = True):
     adopted = get_dog_is_adopted(adopted)
     return list(adopted)
    

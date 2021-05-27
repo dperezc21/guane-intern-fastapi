@@ -42,8 +42,6 @@ def create_dog(id_user_:str, id_:str, name_:str, pinture_:str, is_adopted_:bool)
     else:
         return "Error al momento de ingresar el id del usuario"
     
-    
-
 
 def delete_dog(name:str):
     dog_deleted = Dog.select().where(Dog.name == name).first()

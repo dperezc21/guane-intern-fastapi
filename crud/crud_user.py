@@ -1,4 +1,4 @@
-from models import User
+from models import Dog, User
 
 
 def create_user(id_:str, name_:str, last_name_:str, email_:str):
@@ -20,10 +20,15 @@ def get_user(id:str):
 
 
 def delete_user(id:str):
-    user_deleted = User.select().where(User.id == id).first()
-    if user_deleted:
-        user_deleted.delete_instance()
-        return "Dog Deletd"
+    delete_user = User.select().where(User.id == id).first()
+    dog = Dog.select().where(Dog.id_user == id).first()
+    if not dog:
+        delete_user.delete_instance()
+        return "User Deleted"
+    elif delete_user:
+        dog.delete_instance()
+        delete_user.delete_instance()
+        return "User Deletd"
     else:
         return False
 
