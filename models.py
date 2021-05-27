@@ -4,7 +4,7 @@ from database import db
 
 
 class User(Model):
-    id = CharField(max_length=10)
+    id = PrimaryKeyField()
     name = CharField(max_length=20)
     last_name = CharField(max_length=20)
     email = CharField(max_length=20)
@@ -14,12 +14,12 @@ class User(Model):
 
 
 class Dog(Model):
-    id = CharField(max_length=10)
+    id = PrimaryKeyField()
     name = CharField(max_length=20)
     pinture = CharField()
     is_adopted = BooleanField()
     create_date = DateTimeField()
-    id_user = CharField(max_length=10)
+    id_user = ForeignKeyField(User, backref="dogs")
 
     class Meta:
         database = db

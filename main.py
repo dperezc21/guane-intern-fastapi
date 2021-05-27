@@ -9,9 +9,7 @@ from fastapi import Depends
 from fastapi.security import OAuth2PasswordRequestForm
 from models import *
 
-
 app = FastAPI()
-
 
 @app.on_event('startup')
 def startup():
@@ -23,6 +21,25 @@ def startup():
 def shutdown():
     if not db.is_closed():
         db.close()
+
+
+@app.post("/api/dogs/user")
+async def create_users(user:ModelUser):
+    return create_user(user.id, user.name, user.last_name, user.email)
+
+
+@app.get("/api/dogs/user/{id}")
+async def get_user_id(id:str):
+    user=get_user(id)
+    if not user:
+        return "Usuario no encontrado"
+    else:
+        return user
+
+
+@app.delete("/api/dogs/user/{id}")
+async def delete_users(id:str):
+    return delete_user(id)
 
 
 @app.post("/api/dogs")
@@ -54,7 +71,7 @@ async def get_dog_for_name(name:str):
     return list(dog)
 
 @app.get("/api/dogs/is_adopted/{}")
-async def dog_is_adopted(adopted:bool = True):
+async def get_dog_is_adopted(adopted:bool = True):
     adopted = get_dog_is_adopted(adopted)
     return list(adopted)
    
@@ -69,23 +86,3 @@ async def actualizar(d:ModelDogs):
     dog = Dog.select().where(Dog.name == d.name).first()
     pass
 """
-
-@app.post("/api/dogs/user")
-async def create_users(user:ModelUser):
-    return create_user(user.id, user.name, user.last_name, user.email)
-
-
-@app.get("/api/dogs/user/{id}")
-async def get_user_id(id:str):
-    user=get_user(id)
-    if not user:
-        return "Usuario no encontrado"
-    else:
-        return user
-
-
-@app.delete("/api/dogs/user/{id}")
-async def delete_users(id:str):
-    return delete_user(id)
-
-
