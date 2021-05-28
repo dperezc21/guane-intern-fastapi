@@ -25,8 +25,8 @@ def shutdown():
 
 
 @app.post("/api/users")
-async def create_users(user:ModelUser):
-    return create_user(user.id, user.name, user.last_name, user.email)
+async def create_users(id:str, name:str, last_name:str, email:str):
+    return create_user(id, name, last_name, email)
 
 
 @app.get("/api/users/{id}")
