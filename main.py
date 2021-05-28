@@ -71,6 +71,14 @@ async def dogs():
     return list(result)
 
 
+@app.get("/api/dogs/is_adopted")
+async def dog_is_adopted():
+    adopted = get_dog_is_adopted()
+    if not adopted:
+        return "no existe"
+    return list(adopted)
+   
+
 @app.get("/api/dogs/{name}")
 async def get_dog_for_name(name:str):
     dog = get_dog(name)
@@ -78,11 +86,7 @@ async def get_dog_for_name(name:str):
         return "No existe registro"
     return list(dog)
 
-@app.get("/api/dogs/is_adopted/{}")
-async def dog_is_adopted(adopted:bool = True):
-    adopted = get_dog_is_adopted(adopted)
-    return list(adopted)
-   
+
 
 @app.delete("/api/dogs/{name}")
 async def eliminar_dog(name:str):

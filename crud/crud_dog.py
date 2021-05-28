@@ -20,8 +20,8 @@ def get_dog(name:str):
     return Dog.select().where(Dog.name == name)
 
 
-def get_dog_is_adopted(adopted:bool):
-    return Dog.select().where(Dog.is_adopted == adopted).offset(0).limit(100)
+def get_dog_is_adopted():
+    return Dog.select().where(Dog.is_adopted == 1).offset(0).limit(100)
 
 
 def create_dog(id_user_:str, id_:str, name_:str, pinture_:str, is_adopted_:bool):
