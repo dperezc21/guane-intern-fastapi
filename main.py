@@ -24,12 +24,12 @@ def shutdown():
         db.close()
 
 
-@app.post("/api/dogs/user")
+@app.post("/api/users")
 async def create_users(user:ModelUser):
     return create_user(user.id, user.name, user.last_name, user.email)
 
 
-@app.get("/api/dogs/user/{id}")
+@app.get("/api/users/{id}")
 async def get_user_id(id:str):
     user=get_user(id)
     if not user:
@@ -38,9 +38,14 @@ async def get_user_id(id:str):
         return user
 
 
-@app.delete("/api/dogs/user/{id}")
+@app.delete("/api/users/{id}")
 async def delete_users(id:str):
     return delete_user(id)
+
+
+@app.put("/api/users")
+async def update_user(user:ModelUser):
+    return update_user_(user)
 
 
 @app.post("/api/dogs")
@@ -69,6 +74,8 @@ async def dogs():
 @app.get("/api/dogs/{name}")
 async def get_dog_for_name(name:str):
     dog = get_dog(name)
+    if not dog:
+        return "No existe registro"
     return list(dog)
 
 @app.get("/api/dogs/is_adopted/{}")
@@ -81,9 +88,9 @@ async def dog_is_adopted(adopted:bool = True):
 async def eliminar_dog(name:str):
     return delete_dog(name)
     
-"""
+
 @app.put("/api/dogs")
-async def actualizar(d:ModelDogs):
-    dog = Dog.select().where(Dog.name == d.name).first()
-    pass
-"""
+async def update_dog(dog:ModelDogs):
+    return update_dog(dog)
+
+

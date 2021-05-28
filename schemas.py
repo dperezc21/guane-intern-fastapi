@@ -4,11 +4,12 @@ from datetime import datetime
 
 
 class ModelDogs(BaseModel):
-    id : Optional[str]
-    name: str
+    id : str
+    name: Optional[str]
     pinture: Optional[str]
     is_adopted: Optional[bool]
     create_date: Optional[datetime]
+    id_user: Optional[str]
 
 
 class ModelUser(BaseModel):

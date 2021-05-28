@@ -40,7 +40,7 @@ def create_dog(id_user_:str, id_:str, name_:str, pinture_:str, is_adopted_:bool)
         else:
             return False
     else:
-        return "Error al momento de ingresar el id del usuario"
+        return "Registro del usuario con Id: {} no existe".format(id_user_)
     
 
 def delete_dog(name:str):
@@ -52,3 +52,15 @@ def delete_dog(name:str):
         return False
 
 
+def update_dog(data_dog):
+    dog = Dog.filter(Dog.id == data_dog.id).first()
+    if dog:
+        for clave, valor in data_dog:
+            if data_dog.id == valor or data_dog.id_user == valor:
+                continue
+            dog.update({clave:valor}).where(Dog.id == data_dog.id).execute()
+        return "Dog Updated"
+    
+        
+     
+    

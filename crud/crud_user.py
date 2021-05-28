@@ -32,3 +32,13 @@ def delete_user(id:str):
     else:
         return False
 
+
+def update_user_(data_user):
+    user = User.filter(User.id == data_user.id).first()
+    if user:
+        for clave, valor in data_user:
+            if valor == data_user.id:
+                continue
+            user.update({clave:valor}).where(User.id == data_user.id).execute()
+        
+        return "user updated"
